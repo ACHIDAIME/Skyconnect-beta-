@@ -82,29 +82,36 @@
 <section class="text-center">
     <h2 class="mb-4 text-danger fw-bold" style="text-shadow:0 2px 8px #d9042940;">Nos Services</h2>
     <p class="text-muted mb-5">Découvrez nos solutions pour une connexion sans souci, à la maison comme au bureau</p>
-
     <div class="row justify-content-center g-4">
-
-        <div class="row justify-content-center g-4">
     {% for service in services %}
-    <div class="col-md-4">
+      <div class="col-md-4">
         <div class="card border-danger shadow-sm h-100 card-offre delay-{{ forloop.counter }}">
-            <div class="card-body text-center position-relative">
-                {% if service.badge %}
-                <span class="badge {{ service.badge_color|default:'badge-promo' }} position-absolute top-0 end-0 m-2">{{ service.badge }}</span>
-                {% endif %}
-                <i class="bi {{ service.icone }} text-danger" style="font-size: 2.5rem;"></i>
-                <h5 class="card-title mt-3">{{ service.nom }}</h5>
-                <p class="card-text text-muted">{{ service.description }}</p>
-                <div class="price-halo mb-2">{{ service.prix }}</div>
-                <a href="https://wa.me/2250700000000?text=Bonjour%20SkyConnect%2C%20je%20souhaite%20m%27abonner%20au%20service%20{{ service.nom|urlencode }}" 
-                   target="_blank" 
-                   class="btn btn-outline-danger mt-2 btn-animated">
-                   S’abonner
-                </a>
-            </div>
+          <div class="card-body text-center position-relative">
+            {% if service.badge %}
+              <span class="badge {{ service.badge_color|default:'badge-promo' }} position-absolute top-0 end-0 m-2">{{ service.badge }}</span>
+            {% endif %}
+            <i class="bi {{ service.icone }} text-danger" style="font-size: 2.5rem;"></i>
+            <h5 class="card-title mt-3">{{ service.nom }}</h5>
+            {% if service.description1 %}
+              <p class="card-text text-muted">{{ service.description1 }}</p>
+            {% endif %}
+            <ul class="list-unstyled mb-2">
+              {% if service.description2 %}<li>• {{ service.description2 }}</li>{% endif %}
+              {% if service.description3 %}<li>• {{ service.description3 }}</li>{% endif %}
+              {% if service.description4 %}<li>• {{ service.description4 }}</li>{% endif %}
+            </ul>
+            {% if service.prix %}
+              <div class="price-halo mb-2">{{ service.prix }}</div>
+            {% endif %}
+            <a href="https://wa.me/+2246209004?text=Bonjour%20SkyConnect%2C%20je%20souhaite%20m%27abonner%20au%20service%20{{ service.nom|urlencode }}"
+              target="_blank" 
+              class="btn btn-outline-danger mt-2 btn-animated">
+              S’abonner
+            </a>
+          </div>
         </div>
-    </div>
+      </div>
     {% endfor %}
+    </div>
 </section>
 {% endblock %}

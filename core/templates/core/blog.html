@@ -1,0 +1,90 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Blog / Actualités - Sky Connect{% endblock %}
+
+{% block content %}
+<section class="container my-5 fade-in-up">
+  <h1 class="mb-4 text-center fw-bold" style="color:#d90429;">
+    <i class="bi bi-newspaper me-2"></i>Blog / Actualités
+  </h1>
+
+  <!-- Slider d'actualité -->
+<div id="carouselActu" class="carousel slide rounded shadow mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner rounded">
+    {% for actu in actualites %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="position-relative" style="height:400px;">
+          <img src="{{ actu.image.url }}" class="d-block w-100 rounded" alt="{{ actu.titre }}" style="height:400px;object-fit:cover;">
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+               style="background: linear-gradient(90deg,rgba(220,4,41,0.85) 60%,rgba(255,255,255,0.1) 100%);
+                      border-radius: 12px; animation: actuTextAnim 1.2s;">
+            <h4 class="fw-bold mb-2" style="color:#ffd700; text-shadow:0 2px 12px #222;">
+              {{ actu.titre }}
+            </h4>
+            <p class="mb-2" style="font-size:1.15rem; color:#fff; text-shadow:0 2px 8px #222;">
+              {{ actu.description }}
+            </p>
+            {% if actu.lien %}
+              <a href="{{ actu.lien }}" target="_blank" class="btn btn-outline-warning btn-sm">Voir plus</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselActu" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Précédent</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselActu" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Suivant</span>
+  </button>
+</div>
+  <style>
+  @keyframes actuTextAnim {
+    0% { opacity: 0; transform: translateY(40px) scale(0.95);}
+    60% { opacity: 1; transform: translateY(-10px) scale(1.05);}
+    80% { transform: translateY(0) scale(0.98);}
+    100% { opacity: 1; transform: translateY(0) scale(1);}
+  }
+  #carouselActu .carousel-caption {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 2rem;
+    background: linear-gradient(90deg,rgba(220,4,41,0.85) 60%,rgba(255,255,255,0.1) 100%);
+    border-radius: 12px;
+    animation: actuTextAnim 1.2s;
+  }
+  </style>
+
+  <!-- Le reste des actualités en cartes -->
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="alert alert-info text-center mb-4" style="font-size:1.1rem;">
+        Retrouvez ici les dernières actualités de Sky Connect, directement issues de nos réseaux sociaux et communiqués officiels.
+      </div>
+      <!-- Exemple de bloc actualité -->
+      {% for actu in actualites %}
+      <div class="card mb-4 shadow-sm">
+        <div class="w-100 d-flex justify-content-center" style="background:transparent;">
+          <img src="{{ actu.image.url }}" 
+               alt="{{ actu.titre }}" 
+                 style="width:500px; height:auto; object-fit:cover; border-radius:8px; margin:0; padding:0; border:none; box-shadow:none;">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title" style="color:#d90429;">{{ actu.titre }}</h5>
+          <p class="card-text">{{ actu.description }}</p>
+          {% if actu.lien %}
+            <a href="{{ actu.lien }}" target="_blank" class="btn btn-outline-danger btn-sm">Voir plus</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Ajoute ici d'autres actualités selon tes besoins -->
+    </div>
+  </div>
+</section>
+{% endblock %}

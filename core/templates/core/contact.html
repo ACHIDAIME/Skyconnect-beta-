@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Contact - Sky Connect{% endblock %}
+
+{% block content %}
+<div class="row my-5">
+    <div class="col-md-6">
+        <h2 class="text-danger mb-4">Contactez-nous</h2>
+
+        {# Messages flash Django #}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {# Fallback avec "success" si tu veux le garder en plus #}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.nom.label_tag }} {{ form.nom }}
+                {% if form.nom.errors %}
+                    <div class="text-danger small">{{ form.nom.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label_tag }} {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-danger small">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.sujet.label_tag }} {{ form.sujet }}
+                {% if form.sujet.errors %}
+                    <div class="text-danger small">{{ form.sujet.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.message.label_tag }} {{ form.message }}
+                {% if form.message.errors %}
+                    <div class="text-danger small">{{ form.message.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-danger">Envoyer</button>
+        </form>
+    </div>
+
+    <div class="col-md-6 mt-5 mt-md-0">
+        <h4 class="text-danger mb-3">Nos coordonnées</h4>
+        <p><i class="bi bi-geo-alt-fill text-danger"></i> Immeuble Sky Tower, Kaloum - Conakry</p>
+        <p><i class="bi bi-telephone-fill text-danger"></i> +224 620 90 04 00</p>
+        <p><i class="bi bi-envelope-fill text-danger"></i> contact@skyconnect.gn</p>
+    </div>
+</div>
+{% endblock %}

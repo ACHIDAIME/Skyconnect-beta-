@@ -1,0 +1,265 @@
+{% extends 'core/base.html' %}
+{% block title %}Accueil - Sky Connect{% endblock %}
+
+{% block content %}
+<style>
+/* Fond animé avec particules */
+#particles-js {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Animation sur le titre principal */
+@keyframes popTitle {
+  0% { transform: scale(0.8); opacity: 0;}
+  60% { transform: scale(1.1); opacity: 1;}
+  100% { transform: scale(1); }
+}
+.hero-title {
+  animation: popTitle 1.2s cubic-bezier(.4,0,.2,1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+  text-shadow: 0 2px 16px #d9042940, 0 0 32px #ffd70080;
+}
+
+/* Effet halo sur compteurs */
+.counter {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--rouge-sky);
+  text-shadow: 0 2px 8px #d9042940, 0 0 16px #ffd70080;
+  animation: halo 2s infinite alternate;
+}
+@keyframes halo {
+  0% { text-shadow: 0 2px 8px #d9042940, 0 0 8px #ffd70040;}
+  100% { text-shadow: 0 2px 16px #d9042940, 0 0 32px #ffd70080;}
+}
+
+/* Avantages effet rebond */
+.advantage {
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.advantage:hover {
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 12px 32px #ffd70040, 0 8px 24px rgba(220,0,41,0.12);
+  background: #fffbe6;
+  animation: bounce 0.5s;
+}
+@keyframes bounce {
+  0% { transform: scale(1.12) rotate(-2deg);}
+  50% { transform: scale(0.95) rotate(2deg);}
+  100% { transform: scale(1.12) rotate(-2deg);}
+}
+
+/* Animation fade-in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: none;}
+}
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+.fade-in-up.delay-1 { animation-delay: 0.3s;}
+.fade-in-up.delay-2 { animation-delay: 0.6s;}
+.fade-in-up.delay-3 { animation-delay: 0.9s;}
+
+/* Bouton "Voir nos offres" effet lumière */
+.btn-animated {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #ffd70080;
+  background: linear-gradient(90deg,#ffd700,#fffbe6);
+  color: #a00320;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+.btn-animated::after {
+  content: "";
+  position: absolute;
+  left: -40px; top: 0; width: 40px; height: 100%;
+  background: linear-gradient(120deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+.btn-animated:hover::after {
+  left: 100%;
+}
+.btn-animated:hover {
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 4px 16px #ffd70080;
+  background: linear-gradient(90deg,#fffbe6,#ffd700);
+  color: #d90429;
+}
+
+/* Bouton flottant contact */
+.fab-contact {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1001;
+  background: linear-gradient(90deg,#ffd700,#d90429);
+  color: #fff;
+  border-radius: 50%;
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px #d9042940;
+  font-size: 2rem;
+  animation: fabPop 1.2s 1.5s forwards;
+  opacity: 0;
+  transition: background 0.3s, transform 0.2s;
+}
+.fab-contact:hover {
+  background: linear-gradient(90deg,#d90429,#ffd700);
+  transform: scale(1.15) rotate(-8deg);
+}
+@keyframes fabPop {
+  from { opacity: 0; transform: scale(0.5);}
+  to { opacity: 1; transform: scale(1);}
+}
+</style>
+
+<!-- Fond animé -->
+<div id="particles-js"></div>
+
+<!-- Hero Section -->
+<section class="text-center p-5 bg-white shadow-sm rounded fade-in-up" style="position:relative; z-index:1;">
+    <h1 class="mb-3 hero-title">Internet rapide et fiable partout en Guinée</h1>
+    <p class="lead fade-in-up delay-1">Profitez d’une connexion stable grâce à notre réseau fibre & 4G</p>
+    <a href="{% url 'offres' %}" class="btn btn-primary mt-3 btn-animated" style="background-color: var(--rouge-sky); border-color: var(--rouge-sky);">Voir nos offres</a>
+</section>
+
+<!-- Compteurs animés -->
+<section class="container my-5 fade-in-up delay-2" style="position:relative; z-index:1;">
+  <div class="row text-center">
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'zone_couverture' %}" style="text-decoration:none;">
+        <div class="counter" data-target="34" style="color:#d90429;">0</div>
+        <div>
+          <span style="color:#222;font-weight:bold;">Villes couvertes</span>
+          <span class="badge" style="background:#d90429;color:#fff;font-weight:bold;">Toute la Guinée</span>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'qui_sommes_nous' %}" style="text-decoration:none;">
+        <div style="height:2.2rem;">
+          <i class="bi bi-people-fill" style="font-size:2.2rem;color:#d90429;text-shadow:0 2px 8px #d9042940;"></i>
+        </div>
+        <div>
+          <span style="color:#222;font-weight:bold;">Notre histoire & références</span>
+          <span class="badge" style="background:#d90429;color:#fff;font-weight:bold;">Grands clients</span>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="{% url 'contact' %}" style="text-decoration:none;">
+        <div class="counter" data-target="24" style="color:#d90429;">0</div>
+        <div>
+          <span style="color:#222;font-weight:bold;">Support 24h/24</span>
+          <span class="badge" style="background:#d90429;color:#fff;font-weight:bold;">Contactez-nous</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Avantages stylés -->
+<section class="container my-5 fade-in-up delay-3" style="position:relative; z-index:1;">
+    <h2 class="text-center mb-4" style="text-shadow:0 2px 8px #d9042940;">Pourquoi choisir Sky Connect ?</h2>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4 advantage p-3 rounded shadow-sm">
+            <i class="bi bi-lightning-charge" style="font-size:2.5rem;color:#d90429;text-shadow:0 2px 8px #d9042940;"></i>
+            <h5 class="mt-2">Ultra rapide</h5>
+            <p>Des débits élevés pour tous vos usages : streaming, télétravail, jeux en ligne…</p>
+        </div>
+        <div class="col-md-4 mb-4 advantage p-3 rounded shadow-sm">
+            <i class="bi bi-shield-check" style="font-size:2.5rem;color:#d90429;text-shadow:0 2px 8px #d9042940;"></i>
+            <h5 class="mt-2">Fiabilité & Réactivité</h5>
+            <p>Un réseau moderne, sécurisé et une équipe disponible pour intervenir rapidement.</p>
+        </div>
+        <div class="col-md-4 mb-4 advantage p-3 rounded shadow-sm">
+            <i class="bi bi-people" style="font-size:2.5rem;color:#d90429;text-shadow:0 2px 8px #d9042940;"></i>
+            <h5 class="mt-2">Support client</h5>
+            <p>Une équipe à votre écoute 7j/7 pour vous accompagner et vous dépanner.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Nos services -->
+<section class="container my-5 fade-in-up" style="position:relative; z-index:1;">
+  <h2 class="text-center mb-4">Nos services</h2>
+  <div class="row text-center">
+    <div class="col-md-2 mb-3"><i class="bi bi-wifi" style="font-size:2rem;"></i><br>Internet à domicile</div>
+    <div class="col-md-2 mb-3"><i class="bi bi-telephone" style="font-size:2rem;"></i><br>Téléphonie</div>
+    <div class="col-md-2 mb-3"><i class="bi bi-tv" style="font-size:2rem;"></i><br>TV / Streaming</div>
+    <div class="col-md-2 mb-3"><i class="bi bi-tools" style="font-size:2rem;"></i><br>Installation à domicile</div>
+    <div class="col-md-2 mb-3"><i class="bi bi-headset" style="font-size:2rem;"></i><br>SAV / Support technique</div>
+    <div class="col-md-2 mb-3"><i class="bi bi-plus-circle" style="font-size:2rem;"></i><br>Autres services</div>
+  </div>
+</section>
+
+<!-- Bouton flottant contact -->
+<a href="{% url 'contact' %}" class="fab-contact" title="Contactez-nous">
+  <i class="bi bi-chat-dots"></i>
+</a>
+
+<!-- Particules animées (nécessite particles.js) -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+    "color": { "value": "#ffd700" },
+    "shape": { "type": "circle" },
+    "opacity": { "value": 0.3, "random": true },
+    "size": { "value": 6, "random": true },
+    "line_linked": { "enable": false },
+    "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+    "modes": { "repulse": { "distance": 80 }, "push": { "particles_nb": 4 } }
+  },
+  "retina_detect": true
+});
+</script>
+
+<script>
+// Animation fade-in au scroll
+document.addEventListener("DOMContentLoaded", function() {
+  const fadeEls = document.querySelectorAll('.fade-in-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => observer.observe(el));
+  // Animation sur le titre
+  document.querySelector('.hero-title').style.opacity = 1;
+});
+
+// Compteur animé
+const counters = document.querySelectorAll('.counter');
+counters.forEach(counter => {
+  const updateCount = () => {
+    const target = +counter.getAttribute('data-target');
+    let count = +counter.innerText;
+    const inc = Math.max(1, target / 100);
+    if(count < target) {
+      counter.innerText = Math.ceil(count + inc);
+      setTimeout(updateCount, 20);
+    } else {
+      counter.innerText = target;
+    }
+  };
+  updateCount();
+});
+</script>
+{% endblock %}

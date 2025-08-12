@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+{% block title %}Nos Offres - Sky Connect{% endblock %}
+
+{% block content %}
+<style>
+/* Animation fade-in sur les cartes */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: none;}
+}
+.card-offre {
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+.card-offre.delay-1 { animation-delay: 0.2s;}
+.card-offre.delay-2 { animation-delay: 0.5s;}
+.card-offre.delay-3 { animation-delay: 0.8s;}
+
+/* Effet survol carte */
+.card-offre:hover {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 8px 32px #ffd70040, 0 4px 16px #d9042940;
+  background: #fffbe6;
+  transition: all 0.3s;
+}
+
+/* Badge promo animé */
+.badge-promo {
+  background: linear-gradient(90deg,#ffd700,#d90429);
+  color: #fff;
+  font-weight: bold;
+  animation: badgePulse 1.2s infinite alternate;
+  box-shadow: 0 2px 8px #ffd70080;
+}
+@keyframes badgePulse {
+  0% { box-shadow: 0 0 8px #ffd70080;}
+  100% { box-shadow: 0 0 24px #ffd700;}
+}
+
+/* Halo sur prix */
+.price-halo {
+  color: #d90429;
+  text-shadow: 0 2px 8px #d9042940, 0 0 16px #ffd70080;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: halo 2s infinite alternate;
+}
+@keyframes halo {
+  0% { text-shadow: 0 2px 8px #d9042940, 0 0 8px #ffd70040;}
+  100% { text-shadow: 0 2px 16px #d9042940, 0 0 32px #ffd70080;}
+}
+
+/* Bouton animé */
+.btn-animated {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #ffd70080;
+  background: linear-gradient(90deg,#ffd700,#fffbe6);
+  color: #a00320;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+.btn-animated::after {
+  content: "";
+  position: absolute;
+  left: -40px; top: 0; width: 40px; height: 100%;
+  background: linear-gradient(120deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+.btn-animated:hover::after {
+  left: 100%;
+}
+.btn-animated:hover {
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 4px 16px #ffd70080;
+  background: linear-gradient(90deg,#fffbe6,#ffd700);
+  color: #d90429;
+}
+</style>
+
+<section class="text-center">
+    <h2 class="mb-4 text-danger fw-bold" style="text-shadow:0 2px 8px #d9042940;">Nos Services</h2>
+    <p class="text-muted mb-5">Découvrez nos solutions pour une connexion sans souci, à la maison comme au bureau</p>
+
+    <div class="row justify-content-center g-4">
+
+        <div class="row justify-content-center g-4">
+    {% for service in services %}
+    <div class="col-md-4">
+        <div class="card border-danger shadow-sm h-100 card-offre delay-{{ forloop.counter }}">
+            <div class="card-body text-center position-relative">
+                {% if service.badge %}
+                <span class="badge {{ service.badge_color|default:'badge-promo' }} position-absolute top-0 end-0 m-2">{{ service.badge }}</span>
+                {% endif %}
+                <i class="bi {{ service.icone }} text-danger" style="font-size: 2.5rem;"></i>
+                <h5 class="card-title mt-3">{{ service.nom }}</h5>
+                <p class="card-text text-muted">{{ service.description }}</p>
+                <div class="price-halo mb-2">{{ service.prix }}</div>
+                <a href="https://wa.me/2250700000000?text=Bonjour%20SkyConnect%2C%20je%20souhaite%20m%27abonner%20au%20service%20{{ service.nom|urlencode }}" 
+                   target="_blank" 
+                   class="btn btn-outline-danger mt-2 btn-animated">
+                   S’abonner
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

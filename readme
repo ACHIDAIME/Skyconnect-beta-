@@ -1,6 +1,82 @@
+# SkyConnect - Instructions d’installation et de lancement
 
+## Prérequis
 
-Lien vers les icones bootsrap 
+- Python 3.10+ installé
+- PostgreSQL installé et configuré
+- Un compte GitHub (pour cloner le projet)
+- Accès à Internet (pour installer les dépendances)
 
-https://icons.getbootstrap.com
+## Installation
+
+1. **Cloner le projet**
+   ```sh
+   git clone https://github.com/ACHIDAIME/skyconnect-beta-.git
+   cd skyconnect-beta-
+   ```
+
+2. **Créer et activer un environnement virtuel**
+   ```sh
+   python -m venv venv
+   venv\Scripts\activate   # Sur Windows
+   # ou
+   source venv/bin/activate   # Sur Mac/Linux
+   ```
+
+3. **Installer les dépendances**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. **Créer la base de données PostgreSQL**
+   - Crée une base nommée `skyconnect_db` (ou adapte le nom dans `settings.py`)
+   - Crée un utilisateur PostgreSQL et donne-lui les droits sur la base
+
+5. **Configurer la connexion à la base dans `settings.py`**
+   ```python
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'skyconnect_db',
+           'USER': 'ton_utilisateur',
+           'PASSWORD': 'ton_mot_de_passe',
+           'HOST': 'localhost',
+           'PORT': '5432',
+       }
+   }
+   ```
+
+6. **Appliquer les migrations**
+   ```sh
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+7. **Créer un superutilisateur pour l’admin Django**
+   ```sh
+   python manage.py createsuperuser
+   ```
+
+8. **Lancer le serveur**
+   ```sh
+   python manage.py runserver
+   ```
+
+9. **Accéder au site**
+   - Frontend : [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+   - Admin : [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+## Utilisation
+
+- Ajoute les sliders, actualités, services, logo, zones de couverture… via l’admin Django.
+- Les images uploadées sont stockées dans le dossier `media/`.
+- Pour les icônes Bootstrap, utilise les noms disponibles ici :  
+  [https://icons.getbootstrap.com](https://icons.getbootstrap.com)
+
+## Conseils
+
+- Ne pas versionner le dossier `media/` ni l’environnement virtuel (`venv/`).
+- Ajoute/modifie le fichier `.env` si tu utilises des variables sensibles.
+- Pour toute question, contacte le support technique.
+
 

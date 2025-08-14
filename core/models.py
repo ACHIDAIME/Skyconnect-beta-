@@ -34,8 +34,6 @@ class MessageContact(models.Model):
 class ZoneCouverture(models.Model):
     nom = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    # Tu peux ajouter d'autres champs si besoin
-
     def __str__(self):
         return self.nom
 

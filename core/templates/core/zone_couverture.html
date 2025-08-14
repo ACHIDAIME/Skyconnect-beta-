@@ -102,7 +102,7 @@
     <span class="fw-bold">dans toutes les villes et régions du pays</span>.<br>
     Où que vous soyez, nos équipes vous accompagnent pour une connexion sans limite.
   </p>
-  <div class="carte-guinee">
+<div class="carte-guinee" style="position:relative; width:1000px; height:500px; margin:auto;">
     <!-- SVG de la Guinée, toutes les régions sont supportées -->
     <svg baseprofile="tiny" fill="#6f9c76" height="751" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5" version="1.2" viewBox="0 0 1000 751" width="1000" xmlns="http://www.w3.org/2000/svg">
       <g id="features">
@@ -258,23 +258,30 @@
   </div>
   <!-- Liste dynamique des zones de couverture -->
   <div class="mb-4">
-    {% if zones %}
-      <h4 class="mb-3">Zones couvertes :</h4>
-      <ul class="list-group list-group-flush mb-4">
-        {% for zone in zones %}
-          <li class="list-group-item">
-            <span class="fw-bold">{{ zone.nom }}</span>
-            {% if zone.description %}<br><small>{{ zone.description }}</small>{% endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
-
-  <!-- SVG de la Guinée, toutes les régions sont supportées -->
-  <div class="carte-guinee">
-    <!-- ... SVG existant ... -->
-  </div>
+  <div class="container my-4">
+  {% if zones %}
+    <h4 class="mb-3">Zones couvertes :</h4>
+    <div class="row justify-content-center">
+      {% for zone in zones %}
+        <div class="col-md-3 mb-4">
+          <div class="card shadow-sm border-0 h-100" style="border-radius:14px;">
+            <div class="card-body text-center">
+              <i class="bi bi-geo-alt-fill mb-2" style="font-size:2rem; color:#ffd700;"></i>
+              <h6 class="fw-bold text-danger mb-1">{{ zone.nom }}</h6>
+              {% if zone.description %}
+                <span class="badge bg-primary">{{ zone.description }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+          </div><div class="row justify-content-center">
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+</div>
 </section>
 <script>
 // Animation fade-in sur la carte au scroll

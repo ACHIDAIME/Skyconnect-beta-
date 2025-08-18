@@ -3,6 +3,26 @@
 {% block title %}Blog / Actualités - Sky Connect{% endblock %}
 
 {% block content %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.show-full').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const card = btn.closest('.card-body');
+      card.querySelector('.short-desc').classList.add('d-none');
+      card.querySelector('.full-desc').classList.remove('d-none');
+      btn.classList.add('d-none');
+    });
+  });
+  document.querySelectorAll('.show-less').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const card = btn.closest('.card-body');
+      card.querySelector('.short-desc').classList.remove('d-none');
+      card.querySelector('.full-desc').classList.add('d-none');
+      card.querySelector('.show-full').classList.remove('d-none');
+    });
+  });
+});
+</script>
 <section class="container my-5 fade-in-up">
   <h1 class="mb-4 text-center fw-bold" style="color:#d90429;">
     <i class="bi bi-newspaper me-2"></i>Blog / Actualités
@@ -22,10 +42,10 @@
               {{ actu.titre }}
             </h4>
             <p class="mb-2" style="font-size:1.15rem; color:#fff; text-shadow:0 2px 8px #222;">
-              {{ actu.description }}
+              {{ actu.description|slice:":120" }}{% if actu.description|length > 120 %}...{% endif %}
             </p>
-            {% if actu.lien %}
-              <a href="{{ actu.lien }}" target="_blank" class="btn btn-outline-warning btn-sm">Voir plus</a>
+            {% if actu.description|length > 120 %}
+              <a href="#post{{ forloop.counter }}" class="btn btn-outline-warning btn-sm">Voir plus</a>
             {% endif %}
           </div>
         </div>
@@ -69,18 +89,25 @@
       <!-- Exemple de bloc actualité -->
      <div class="d-flex flex-column align-items-center">
   {% for actu in actualites %}
-    <div class="card mb-4 shadow-sm" style="overflow:hidden; border:none; border-radius:8px; width:100%; max-width:1000px ;">
-      <img src="{{ actu.image.url }}" 
-           alt="{{ actu.titre }}" 
-           style="display:block; width:100%; height:auto; border-radius:8px;">
-      <div class="card-body p-3" style="border-radius:0 0 8px 8px;">
-        <h5 class="card-title" style="color:#d90429;">{{ actu.titre }}</h5>
-        <p class="card-text">{{ actu.description }}</p>
-        {% if actu.lien %}
-          <a href="{{ actu.lien }}" target="_blank" class="btn btn-outline-danger btn-sm">Voir plus</a>
-        {% endif %}
+    <div class="card mb-4 shadow-sm" id="post{{ forloop.counter }}" style="overflow:hidden; border:none; border-radius:8px; width:100%; max-width:1000px;">
+  <img src="{{ actu.image.url }}" alt="{{ actu.titre }}" style="display:block; width:100%; height:auto; border-radius:8px;">
+  <div class="card-body p-3" style="border-radius:0 0 8px 8px;">
+    <h5 class="card-title" style="color:#d90429;">{{ actu.titre }}</h5>
+    <p class="card-text short-desc">
+      {{ actu.description|slice:":220" }}{% if actu.description|length > 220 %}...{% endif %}
+    </p>
+    {% if actu.description|length > 220 %}
+      <button class="btn btn-outline-danger btn-sm show-full" type="button">Voir plus</button>
+      <div class="card-text full-desc d-none">
+        {{ actu.description }}
+        <button class="btn btn-outline-secondary btn-sm show-less mt-2" type="button">Voir moins</button>
       </div>
-    </div>
+    {% endif %}
+    {% if actu.lien %}
+      <a href="{{ actu.lien }}" target="_blank" class="btn btn-outline-danger btn-sm">Lien externe</a>
+    {% endif %}
+  </div>
+</div>
   {% endfor %}
 </div>
   </div>

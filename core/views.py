@@ -62,3 +62,6 @@ def contact(request):
     else:
         form = MessageContactForm()
     return render(request, 'core/contact.html', {'form': form})
+
+def mentions_legales(request):
+    return render(request, 'core/mentions_legales.html')

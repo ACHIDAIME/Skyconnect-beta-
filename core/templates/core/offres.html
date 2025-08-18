@@ -77,11 +77,22 @@
   background: linear-gradient(90deg,#fffbe6,#ffd700);
   color: #d90429;
 }
+.card-offre:hover .bi {
+  animation: iconPulse 0.7s;
+  filter: drop-shadow(0 0 12px #ffd700);
+}
+@keyframes iconPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25) rotate(-8deg);}
+  100% { transform: scale(1); }
+}
+
+
 </style>
 
 <section class="text-center">
     <h2 class="mb-4 text-danger fw-bold" style="text-shadow:0 2px 8px #d9042940;">Nos Services</h2>
-    <p class="text-muted mb-5">Découvrez nos solutions pour une connexion sans souci, à la maison comme au bureau</p>
+    <p class="text-muted mb-5">Découvrez nos solutions pour une connexion adaptée a tous vos besoins ,que ce soit à Domicile commen en Entreprise</p>
     <div class="row justify-content-center g-4">
     {% for service in services %}
       <div class="col-md-4">
@@ -103,7 +114,7 @@
             {% if service.prix %}
               <div class="price-halo mb-2">{{ service.prix }}</div>
             {% endif %}
-            <a href="https://wa.me/224662566578?text=Bonjour%20SkyConnect%2C%20je%20souhaite%20m%27abonner%20au%20service%20{{ service.nom|urlencode }}"
+            <a href="https://wa.me/224622900400?text=Bonjour%20SkyConnect%2C%20je%20souhaite%20m%27abonner%20au%20service%20{{ service.nom|urlencode }}"
               target="_blank" 
               class="btn btn-outline-danger mt-2 btn-animated">
               S’abonner

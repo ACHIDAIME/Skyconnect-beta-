@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% block title %}Accueil - Sky Connect{% endblock %}
+{% block title %}Accueil - SKYCONNECT{% endblock %}
 
 {% block content %}
 <style>
@@ -119,15 +119,56 @@
   from { opacity: 0; transform: scale(0.5);}
   to { opacity: 1; transform: scale(1);}
 }
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg,#cf0606 0%,#f3f3f3 60%,#cf0606 100%);
+  box-shadow: 0 8px 32px #ffd70040;
+  border-radius: 18px;
+  animation: heroGlow 2.5s infinite alternate;
+}
+@keyframes heroGlow {
+  0% { box-shadow: 0 8px 32px #ffd70040;}
+  100% { box-shadow: 0 16px 64px #ffd70080;}
+}
+
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  animation: btnPop 1.2s 1.5s cubic-bezier(.4,0,.2,1) forwards;
+  opacity: 0;
+}
+@keyframes btnPop {
+  from { opacity: 0; transform: scale(0.7);}
+  to { opacity: 1; transform: scale(1);}
+}
+.btn-animated::after {
+  content: "";
+  position: absolute;
+  left: -40px; top: 0; width: 40px; height: 100%;
+  background: linear-gradient(120deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+.btn-animated:hover::after {
+  left: 100%;
+}
+.btn-animated:hover {
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 4px 16px #ffd70080;
+  background: linear-gradient(90deg,#fffbe6,#ffd700);
+  color: #d90429;
+}
 </style>
 
 <!-- Fond animé -->
 <div id="particles-js"></div>
 
 <!-- Hero Section -->
-<section class="text-center p-5 bg-white shadow-sm rounded fade-in-up" style="position:relative; z-index:1;">
+<section class="text-center p-5 bg-white shadow-sm rounded hero-section" style="position:relative; z-index:1;">
     <h1 class="mb-3 hero-title">Internet rapide et fiable partout en Guinée</h1>
-    <p class="lead fade-in-up delay-1">Profitez d’une connexion stable grâce à notre réseau fibre & 4G</p>
+    <p class="lead">Profitez d’une connexion stable grâce à notre réseau fibre & 4G</p>
     <a href="{% url 'offres' %}" class="btn btn-primary mt-3 btn-animated" style="background-color: var(--rouge-sky); border-color: var(--rouge-sky);">Voir nos offres</a>
 </section>
 
@@ -168,7 +209,7 @@
 
 <!-- Avantages stylés -->
 <section class="container my-5 fade-in-up delay-3" style="position:relative; z-index:1;">
-    <h2 class="text-center mb-4" style="text-shadow:0 2px 8px #d9042940;">Pourquoi choisir Sky Connect ?</h2>
+    <h2 class="text-center mb-4" style="text-shadow:0 2px 8px #d9042940;">Pourquoi choisir SKYCONNECT ?</h2>
     <div class="row text-center">
         <div class="col-md-4 mb-4 advantage p-3 rounded shadow-sm">
             <i class="bi bi-lightning-charge" style="font-size:2.5rem;color:#d90429;text-shadow:0 2px 8px #d9042940;"></i>

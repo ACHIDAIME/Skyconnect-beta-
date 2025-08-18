@@ -49,7 +49,7 @@ class Slider(models.Model):
     
 class Actualite(models.Model):
     titre = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     image = models.ImageField(upload_to='blog/')
     date_pub = models.DateField(auto_now_add=True)
     lien = models.URLField(blank=True, null=True)

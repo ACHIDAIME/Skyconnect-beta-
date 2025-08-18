@@ -3,11 +3,35 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}Sky Connect{% endblock %}</title>
+  <title>{% block title %}SKYCONNECT{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <style>
+    .carousel-item img {
+  width: 100%;
+  height: 400px;      /* Choisis la hauteur qui te convient */
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  display: block;
+}
+    .navbar-logo img {
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.3s;
+}
+.navbar-logo img:hover {
+  transform: scale(1.18) rotate(-8deg);
+  box-shadow: 0 0 32px #ffd70080, 0 2px 12px #d9042980;
+}
+   body {
+  background: linear-gradient(120deg, #e4d8db 0%, #fffbe6 40%, #e9dee0 100%);
+  background-size: 200% 200%;
+  animation: bgMove 8s ease-in-out infinite alternate;
+}
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
     :root {
         --rouge-sky: #d90429;
         --rouge-foncé: #a00320;
@@ -91,14 +115,6 @@
         padding-bottom: 20px;
     }
 
-    .carousel-item img {
-    width: auto;
-    height: 400px; /* ou la hauteur que tu veux */
-    object-fit: cover;
-    object-position: center;
-    border-radius: 12px;
-}
-
 /* Effet glow sur la navbar */
 .navbar-glow {
   box-shadow: 0 0 24px 4px #d90429a0, 0 4px 24px rgba(220,0,41,0.15);
@@ -171,11 +187,36 @@
   0% { background-position: 0%;}
   100% { background-position: 100%;}
 }
+#bg-shapes {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(8px);
+  animation: floatShape 12s infinite alternate;
+}
+.shape1 { width: 220px; height: 220px; background: #ffd700; left: 8vw; top: 12vh; animation-delay: 0s;}
+.shape2 { width: 180px; height: 180px; background: #d90429; right: 10vw; top: 30vh; animation-delay: 2s;}
+.shape3 { width: 140px; height: 140px; background: #a00320; left: 40vw; bottom: 8vh; animation-delay: 4s;}
+@keyframes floatShape {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-40px) scale(1.08);}
+}
 
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
+<!-- Ajoute ce bloc juste après <body> dans base.html pour afficher les bulles sur toutes les pages -->
+<div id="bg-shapes">
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+  <div class="shape shape3"></div>
+</div>
 <!-- Bandeau d'infos animé -->
 <!-- SUPPRIMÉ : la réduction n'est plus affichée -->
 
@@ -183,16 +224,16 @@
 <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top navbar-glow" style="background: linear-gradient(90deg,#d90429,#a00320); box-shadow:0 4px 24px rgba(220,0,41,0.15);">
   <div class="container">
     <span class="navbar-logo d-flex flex-column align-items-center">
-    </span>
-    {% if logo %}
-  <a href="{% url 'accueil' %}">
-    <img src="{{ logo.image.url }}" alt="{{ logo.alt }}" style="width:auto; height:48px; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-  </a>
-{% else %}
-  <a href="{% url 'accueil' %}">
-    <span class="navbar-brand">SkyConnect</span>
-  </a>
-{% endif %}
+  {% if logo %}
+    <a href="{% url 'accueil' %}">
+      <img src="{{ logo.image.url }}" alt="{{ logo.alt }}" style="width:auto; height:48px; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+    </a>
+  {% else %}
+    <a href="{% url 'accueil' %}">
+      <span class="navbar-brand">SkyConnect</span>
+    </a>
+  {% endif %}
+</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -215,16 +256,22 @@
 <div class="container my-4">
   <div id="carouselSkyConnect" class="carousel slide rounded shadow" data-bs-ride="carousel">
     <div class="carousel-inner rounded">
-      {% for slider in sliders %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <img src="{{ slider.image.url }}" class="d-block w-100 rounded" alt="{{ slider.titre }}">
-          <div class="carousel-caption d-none d-md-block">
+  {% for slider in sliders %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{{ slider.image.url }}" class="d-block w-100 rounded" alt="{{ slider.titre }}">
+      {% if slider.titre or slider.description %}
+        <div class="carousel-caption d-none d-md-block">
+          {% if slider.titre %}
             <h5>{{ slider.titre }}</h5>
+          {% endif %}
+          {% if slider.description %}
             <p>{{ slider.description }}</p>
-          </div>
+          {% endif %}
         </div>
-      {% endfor %}
+      {% endif %}
     </div>
+  {% endfor %}
+</div>
     <!-- Flèches navigation -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselSkyConnect" data-bs-slide="prev">
       <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
@@ -240,7 +287,7 @@
 <!-- Mini-navbar -->
 <nav id="miniNavbar" class="navbar navbar-dark bg-danger shadow-sm fixed-top mini-navbar" style="display:none; background: linear-gradient(90deg,#d90429,#a00320);">
   <div class="container d-flex justify-content-between align-items-center">
-    <span class="navbar-brand fw-bold" style="font-size:1.1rem;"><i class="bi bi-wifi"></i> Sky Connect</span>
+    <span class="navbar-brand fw-bold" style="font-size:1.1rem;"><i class="bi bi-wifi"></i> <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="btn btn-outline-light btn-sm mt-3 w-100">SKYCONNECT</button></span>
     <ul class="navbar-nav flex-row align-items-center">
       <li class="nav-item mx-2"><a class="nav-link text-white" href="{% url 'accueil' %}"><i class="bi bi-house-door-fill me-1"></i>Accueil</a></li>
       <li class="nav-item mx-2"><a class="nav-link text-white" href="{% url 'offres' %}"><i class="bi bi-box-seam me-1"></i>Nos Offres</a></li>
@@ -283,33 +330,55 @@
 <!-- 🔻 FOOTER -->
 <footer class="footer footer-glow mt-auto" style="background: linear-gradient(90deg,#a00320,#d90429); box-shadow:0 -2px 16px rgba(220,0,41,0.15); position:relative;">
   <div class="container">
-    <p class="mb-1" style="font-size:1.1rem;">
-      <i class="bi bi-wifi"></i> <strong>Sky Connect</strong> – Fournisseur d’accès Internet en Guinée
-    </p>
-    <p>
-      📧 <a href="mailto:noc@skyconnect-sa.com">noc@skyconnect-sa.com</a> |
-      📞 <a href="tel:+224622900400">+224 622 90 04 00</a>
-    </p>
-    <div class="mb-2">
-      <a href="https://www.facebook.com/skyconnectguinee" target="_blank" class="me-2" title="Facebook">
-        <i class="bi bi-facebook" style="font-size:1.5rem; color:#ffd700; vertical-align:middle;"></i>
-      </a>
-      <a href="https://urlz.fr/sDIB" target="_blank" class="me-2" title="X (Twitter)">
-        <i class="bi bi-twitter-x" style="font-size:1.5rem; color:#ffd700; vertical-align:middle;"></i>
-      </a>
-      <a href="https://urlz.fr/sDIv" target="_blank" class="me-2" title="LinkedIn">
-        <i class="bi bi-linkedin" style="font-size:1.5rem; color:#ffd700; vertical-align:middle;"></i>
-      </a>
-      <a href="https://wa.me/224622900400" target="_blank" class="me-2" title="WhatsApp">
-        <i class="bi bi-whatsapp" style="font-size:1.5rem; color:#ffd700; vertical-align:middle;"></i>
-      </a>
-    </div>
-    <div style="position:absolute;bottom:0;right:10px;">
-      <span class="badge bg-warning text-dark shadow-sm badge-animated">Ultra rapide ⚡</span>
+    <div class="row text-start">
+      <div class="col-md-4 mb-3">
+        <h5 class="mb-2"><i class="bi bi-wifi"></i> SKYCONNECT</h5>
+        <p>Le meilleur fournisseur d’accès Internet en Guinée</p>
+        <p>
+          <i class="bi bi-geo-alt-fill"></i> Immeuble X, Quartier Y, Conakry<br>
+          <i class="bi bi-clock"></i> Lun-Ven : 8h-18h<br>
+          <i class="bi bi-envelope"></i> <a href="mailto:noc@skyconnect-sa.com">noc@skyconnect-sa.com</a><br>
+          <i class="bi bi-telephone"></i> <a href="tel:+224622900400">+224 622 90 04 00</a>
+        </p>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h6 class="mb-2">Liens rapides</h6>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'accueil' %}">Accueil</a></li>
+          <li><a href="{% url 'offres' %}">Nos Offres</a></li>
+          <li><a href="{% url 'zone_couverture' %}">Zone de couverture</a></li>
+          <li><a href="{% url 'qui_sommes_nous' %}">Qui sommes-nous</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'blog' %}">Blog / Actualités</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h6 class="mb-2">Réseaux sociaux</h6>
+        <div>
+          <a href="https://www.facebook.com/skyconnectguinee" target="_blank" class="me-2" title="Facebook"><i class="bi bi-facebook" style="font-size:1.5rem; color:#ffd700;"></i></a>
+          <a href="https://urlz.fr/sDIB" target="_blank" class="me-2" title="X (Twitter)"><i class="bi bi-twitter-x" style="font-size:1.5rem; color:#ffd700;"></i></a>
+          <a href="https://urlz.fr/sDIv" target="_blank" class="me-2" title="LinkedIn"><i class="bi bi-linkedin" style="font-size:1.5rem; color:#ffd700;"></i></a>
+          <a href="https://wa.me/224622900400" target="_blank" class="me-2" title="WhatsApp"><i class="bi bi-whatsapp" style="font-size:1.5rem; color:#ffd700;"></i></a>
+        </div>
+      </div>
+      <div class="col-md-2 mb-3">
+        <h6 class="mb-2">Contact rapide</h6>
+        <a href="mailto:noc@skyconnect-sa.com" class="btn btn-outline-warning btn-sm w-100 mb-2">
+          <i class="bi bi-envelope"></i> Écrire un email
+        </a>
+        <a href="https://wa.me/224622900400" target="_blank" class="btn btn-outline-warning btn-sm w-100 mb-2">
+          <i class="bi bi-whatsapp"></i> WhatsApp direct
+        </a>
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="btn btn-outline-light btn-sm mt-3 w-100">
+          <i class="bi bi-arrow-up"></i> Haut de page
+        </button>
+      </div>
     </div>
     <hr class="my-3" style="border-color:#ffd700;">
     <div class="text-center small text-light mt-2">
-      &copy; Sky Connect {{ now|date:"Y" }}. All rights reserved.
+      <a href="{% url 'mentions_legales' %}">Mentions légales</a> 
+      <br>
+      &copy; SKYCONNECT {{ now|date:"Y" }}. All rights reserved.
     </div>
   </div>
 </footer>

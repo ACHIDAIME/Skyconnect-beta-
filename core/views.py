@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import MessageContactForm
 from django.contrib import messages
-from .models import Service,Slider,Actualite, ZoneCouverture
+from .models import Service,Slider,Actualite, ZoneCouverture,Commune
 from django.core.mail import send_mail
 
 # Create your views here.
@@ -11,8 +11,10 @@ def accueil(request):
         'sliders': sliders,
     })
 
+# core/views.py
+# core/views.py
 def zone_couverture(request):
-    zones = ZoneCouverture.objects.all().order_by('nom')
+    zones = ZoneCouverture.objects.prefetch_related('communes').all()
     return render(request, 'core/zone_couverture.html', {'zones': zones})
 
 def qui_sommes_nous(request):
@@ -23,7 +25,7 @@ def offres(request):
     return render(request, 'core/offres.html', {'services': services})
 
 def blog(request):
-    actualites = Actualite.objects.all().order_by('-date_pub')
+    actualites = Actualite.objects.prefetch_related('images').order_by('-date_pub')
     return render(request, 'core/blog.html', {'actualites': actualites})
 
 def contact(request):
@@ -65,3 +67,4 @@ def contact(request):
 
 def mentions_legales(request):
     return render(request, 'core/mentions_legales.html')
+

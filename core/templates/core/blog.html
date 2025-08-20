@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
     {% for actu in actualites %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <div class="position-relative" style="height:400px;">
-          <img src="{{ actu.image.url }}" class="d-block w-100 rounded" alt="{{ actu.titre }}" style="height:400px;object-fit:cover;">
+{% for img in actu.images.all %}
+  <img src="{{ img.image.url }}" class="d-block w-100 rounded mb-2" alt="{{ img.alt|default:actu.titre }}" style="height:400px;object-fit:cover;">
+{% endfor %}
           <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
                style="background: linear-gradient(90deg,rgba(220,4,41,0.85) 60%,rgba(255,255,255,0.1) 100%);
                       border-radius: 12px; animation: actuTextAnim 1.2s;">
@@ -90,8 +92,26 @@ document.addEventListener('DOMContentLoaded', function() {
      <div class="d-flex flex-column align-items-center">
   {% for actu in actualites %}
     <div class="card mb-4 shadow-sm" id="post{{ forloop.counter }}" style="overflow:hidden; border:none; border-radius:8px; width:100%; max-width:1000px;">
-  <img src="{{ actu.image.url }}" alt="{{ actu.titre }}" style="display:block; width:100%; height:auto; border-radius:8px;">
-  <div class="card-body p-3" style="border-radius:0 0 8px 8px;">
+  <div id="carouselActuCard{{ forloop.counter }}" class="carousel slide mb-3" data-bs-ride="carousel">
+    <div class="carousel-inner">
+  {% for img in actu.images.all %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{{ img.image.url }}" alt="{{ img.alt|default:actu.titre }}" style="width:100%; height:auto; object-fit:cover;">
+    </div>
+  {% endfor %}
+</div>
+    {% if actu.images.count > 1 %}
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselActuCard{{ forloop.counter }}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselActuCard{{ forloop.counter }}" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    {% endif %}
+  </div>
+<div class="card-body p-3">
     <h5 class="card-title" style="color:#d90429;">{{ actu.titre }}</h5>
     <p class="card-text short-desc">
       {{ actu.description|slice:":220" }}{% if actu.description|length > 220 %}...{% endif %}

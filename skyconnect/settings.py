@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core', # Nom de l'application
+    'core',
+    'django_cleanup'
 ]
 
 MIDDLEWARE = [

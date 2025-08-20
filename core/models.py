@@ -32,8 +32,16 @@ class MessageContact(models.Model):
         return f"{self.nom} - {self.sujet}"
 
 class ZoneCouverture(models.Model):
+    region = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    communes = models.ManyToManyField('Commune', related_name='zones')
+    def __str__(self):
+        return self.region
+    
+class Commune(models.Model):
     nom = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+
     def __str__(self):
         return self.nom
 
@@ -50,12 +58,19 @@ class Slider(models.Model):
 class Actualite(models.Model):
     titre = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='blog/')
     date_pub = models.DateField(auto_now_add=True)
     lien = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.titre
+
+class ActualiteImage(models.Model):
+    actualite = models.ForeignKey(Actualite, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='blog/')
+    alt = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.alt or f"Image de {self.actualite.titre}"
 
 class Logo(models.Model):
     image = models.ImageField(upload_to='logo/')
@@ -63,3 +78,5 @@ class Logo(models.Model):
 
     def __str__(self):
         return self.alt
+    
+    

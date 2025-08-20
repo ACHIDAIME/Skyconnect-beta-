@@ -93,14 +93,76 @@
   fill: #f1f1f1;
   filter: drop-shadow(0 0 12px #d9042999);
 }
+.zone-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px #ffd70022;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 6px solid #ffd700;
+  transition: box-shadow 0.3s;
+}
+.zone-card:hover {
+  box-shadow: 0 6px 32px #ffd70044;
+}
+.zone-card h4 {
+  color: #d90429;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+.commune-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+.commune-badge {
+  background: #ffd700;
+  color: #a00320;
+  border-radius: 1rem;
+  font-weight: 500;
+  padding: 0.35rem 1.1rem;
+  font-size: 1rem;
+  box-shadow: 0 1px 6px #ffd70033;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+.commune-badge:hover {
+  background: #fffbe6;
+  color: #d90429;
+}
+.text-muted {
+  font-style: italic;
+  color: #a00320 !important;
+}
+.zone-list {
+  margin: 2.5rem auto 0 auto;
+  max-width: 1200px; /* Largeur augmentée */
+  text-align: left;
+}
+.zone-block {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px #d9042922;
+  padding: 2rem 3rem; /* Plus d’espace */
+  margin-bottom: 0;
+  border-left: 8px solid #d90429;
+  transition: box-shadow 0.3s;
+}
+.zone-block:hover {
+  box-shadow: 0 6px 32px #d9042944;
+}
 </style>
 
 <section class="container my-5 text-center">
-  <h1 class="couverture-titre">SKYCONNECT couvre toute la Guinée !</h1>
+  <h1 class="couverture-titre">SKYCONNECT couvre Conakry !</h1>
   <p class="couverture-texte">
     Profitez d’Internet haut débit, fiable et rapide <br>
-    <span class="fw-bold">dans toutes les villes et régions du pays</span>.<br>
-    Où que vous soyez, nos équipes vous accompagnent pour une connexion sans limite.
+    <span class="fw-bold">dans toutes les communes de Conakry</span>.<br>
+    Nos équipes vous accompagnent pour une connexion sans limite.
   </p>
 <div class="carte-guinee" style="position:relative; width:1000px; height:450px; margin:auto;">
     <!-- SVG de la Guinée, toutes les régions sont supportées -->
@@ -231,7 +293,49 @@
   </circle>
   <circle class="Dubréka" cx="228.9" cy="356.9" id="GNDU">
   </circle>
-  <circle class="Conakry" cx="217.4" cy="425.3" id="GNC">
+  <circle class="Conakry" cx="217.4" cy="425.3" id="GNC"></circle>
+  <g id="marker-conakry" style="cursor:pointer;">
+    <svg x="200" y="408" width="40" height="40" viewBox="0 0 22 22" id="conakry-marker">
+      <circle cx="11" cy="11" r="10" fill="#ffd700" stroke="#ffd700" stroke-width="2"/>
+      <circle cx="11" cy="11" r="4" fill="#fff"/>
+      <title>Conakry</title>
+    </svg>
+  </g>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const marker = document.getElementById("conakry-marker");
+      if (marker) {
+        marker.addEventListener("mouseenter", function() {
+          let tooltip = document.createElement("div");
+          tooltip.id = "conakry-tooltip";
+          tooltip.textContent = "Conakry";
+          tooltip.style.position = "fixed";
+          tooltip.style.background = "#ffd700";
+          tooltip.style.color = "#d90429";
+          tooltip.style.fontWeight = "bold";
+          tooltip.style.padding = "6px 16px";
+          tooltip.style.borderRadius = "12px";
+          tooltip.style.boxShadow = "0 2px 12px #ffd70033";
+          tooltip.style.zIndex = "9999";
+          document.body.appendChild(tooltip);
+          marker.addEventListener("mousemove", function(e) {
+            tooltip.style.left = (e.clientX + 16) + "px";
+            tooltip.style.top = (e.clientY - 10) + "px";
+          });
+        });
+        marker.addEventListener("mouseleave", function() {
+          const tooltip = document.getElementById("conakry-tooltip");
+          if (tooltip) tooltip.remove();
+        });
+        marker.addEventListener("click", function() {
+          const block = document.querySelector('.zone-block h4');
+          if (block && block.textContent.includes("Conakry")) {
+            block.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      }
+    });
+  </script>
   </circle>
   <circle class="Coyah" cx="257.5" cy="399.5" id="GNCO">
   </circle>
@@ -257,37 +361,29 @@
     </svg>
     
   </div>
-  <!-- Liste dynamique des zones de couverture -->
-  <div class="mb-4">
-  <div class="container my-4">
-  {% if zones %}
-    <h4 class="mb-3">Zones couvertes :</h4>
-    <div class="row justify-content-center">
-      {% for zone in zones %}
-        <div class="col-md-3 mb-4">
-          <div class="card shadow-sm border-0 h-100" style="border-radius:14px;">
-            <div class="card-body text-center">
-              <i class="bi bi-geo-alt-fill mb-2" style="font-size:2rem; color:#ffd700;"></i>
-              <h6 class="fw-bold text-danger mb-1">{{ zone.nom }}</h6>
-              {% if zone.description %}
-                <span class="badge bg-primary">{{ zone.description }}</span>
-              {% endif %}
-            </div>
-          </div>
+<!-- Liste dynamique des zones de couverture -->
+<div class="zone-list">
+  {% for zone in zones %}
+    <div class="zone-block">
+      <h4><i class="bi bi-geo-alt-fill me-2" style="color:#d90429;"></i>{{ zone.region }}</h4>
+      <div>
+        <span class="fw-bold">Communes :</span>
+        <div class="commune-list mt-2">
+          {% for commune in zone.communes.all %}
+            <span class="commune-badge">{{ commune.nom }}</span>
+          {% empty %}
+            <span class="text-muted">Aucune commune renseignée.</span>
+          {% endfor %}
         </div>
-        {% if forloop.counter|divisibleby:4 and not forloop.last %}
-          </div><div class="row justify-content-center">
-        {% endif %}
-      {% endfor %}
+      </div>
     </div>
-  {% endif %}
-</div>
+  {% endfor %}
 </div>
 </section>
 <script>
 // Animation fade-in sur la carte au scroll
 document.addEventListener("DOMContentLoaded", function() {
-  const carte = document.querySelector('.carte-guinee');
+  const carte = document.querySelector('.carte-conakry');
   if (carte) {
     carte.style.opacity = 0;
     carte.style.transform = "translateY(40px)";

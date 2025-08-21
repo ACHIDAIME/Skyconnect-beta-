@@ -91,7 +91,7 @@ DATABASES = {
 }
 """
 DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
+    'default': dj_database_url.parse(env('_DATABASE_URL_'))
 }
 
 # Password validation

@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-cl6s88)f6-cslorip60ml2d1di!&q$p06kno3b2&)hg5%r3)tt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["skyconnect-beta.onrender.com", "127.0.0.1", "localhost"]
+
 
 
 # Application definition

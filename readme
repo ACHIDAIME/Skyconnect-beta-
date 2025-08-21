@@ -17,15 +17,15 @@
 
 2. **Créer et activer un environnement virtuel**
    ```sh
-   python -m venv venv
-   venv\Scripts\activate   # Sur Windows
+   python -m venv .venv
+   .venv\Scripts\activate   # Sur Windows
    # ou
-   source venv/bin/activate   # Sur Mac/Linux
+   source .venv/bin/activate   # Sur Mac/Linux
    ```
 
 3. **Installer les dépendances**
    ```sh
-   pip install -r requirements.txt
+   python -m pip install -r requirements.txt
    ```
 
 4. **Créer la base de données PostgreSQL**
@@ -46,37 +46,62 @@
    }
    ```
 
-6. **Appliquer les migrations**
+6. **Configurer les fichiers médias**
+   Dans `settings.py` :
+   ```python
+   MEDIA_URL = '/media/'
+   MEDIA_ROOT = BASE_DIR / 'media'
+   ```
+   Dans `urls.py` principal :
+   ```python
+   from django.conf import settings
+   from django.conf.urls.static import static
+
+   urlpatterns = [
+       # ... tes urls ...
+   ]
+
+   if settings.DEBUG:
+       urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   ```
+
+7. **Appliquer les migrations**
    ```sh
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-7. **Créer un superutilisateur pour l’admin Django**
+8. **Créer un superutilisateur pour l’admin Django**
    ```sh
    python manage.py createsuperuser
    ```
 
-8. **Lancer le serveur**
+9. **Lancer le serveur**
    ```sh
    python manage.py runserver
    ```
 
-9. **Accéder au site**
-   - Frontend : [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-   - Admin : [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+10. **Accéder au site**
+    - Frontend : [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+    - Admin : [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 ## Utilisation
 
-- Ajoute les sliders, actualités, services, logo, zones de couverture… via l’admin Django.
+- Ajoute sliders, actualités (avec plusieurs images via l’admin), services, logo, zones de couverture, etc. via l’admin Django.
 - Les images uploadées sont stockées dans le dossier `media/`.
+- Les fichiers supprimés dans l’admin sont aussi supprimés physiquement si tu utilises le package `django-cleanup`.
 - Pour les icônes Bootstrap, utilise les noms disponibles ici :  
   [https://icons.getbootstrap.com](https://icons.getbootstrap.com)
 
+## Fonctionnalités
+
+- Gestion dynamique des actualités avec plusieurs images par actualité.
+- Zones de couverture : une zone peut regrouper plusieurs communes.
+- Design responsive et personnalisable.
+- Nettoyage automatique des fichiers médias orphelins (avec `django-cleanup`).
+
 ## Conseils
 
-- Ne pas versionner le dossier `media/` ni l’environnement virtuel (`venv/`).
-- Ajoute/modifie le fichier `.env` si tu utilises des variables sensibles.
-- Pour toute question, contacte le support technique.
-
-
+- Pour ajouter plusieurs images à une actualité, utilise le formulaire inline dans l’admin.
+- Si tu modifies les modèles, pense à refaire les migrations.
+- Pour la production, configure un serveur WSGI/ASGI et un stockage sécurisé pour les

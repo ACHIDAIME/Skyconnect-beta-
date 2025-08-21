@@ -1,63 +1,51 @@
 {% extends 'core/base.html' %}
-{% load static %}
-{% block title %}Qui sommes-nous ? - Sky Connect{% endblock %}
+{% block title %}Qui sommes-nous ? - SKYCONNECT{% endblock %}
 
 {% block content %}
 <style>
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px);}
-  to { opacity: 1; transform: none;}
-}
-.fade-in-up {
-  opacity: 0;
-  animation: fadeInUp 1s forwards;
-}
-.fade-in-up.delay-1 { animation-delay: 0.3s;}
-.fade-in-up.delay-2 { animation-delay: 0.6s;}
-.fade-in-up.delay-3 { animation-delay: 0.9s;}
-.team-card {
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.team-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 32px #ffd70040, 0 4px 16px #d9042940;
-}
-.project-card {
-  border-left: 6px solid #d90429;
-  background: #f8f9fa;
-  margin-bottom: 1.2rem;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px #d9042922;
-}
-.project-card strong {
-  color: #d90429;
-}
-.ref-list {
-  columns: 2;
-  font-size: 1.05rem;
-  margin-top: 0.5rem;
-}
-.ref-list li {
-  margin-bottom: 0.4rem;
-}
-.atout-list li {
-  margin-bottom: 0.6rem;
-}
-.badge-theme {
-  background: #d90429;
-  color: #fdfdfd;
-  font-weight: bold;
-  font-size: 1rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px #ffd70040;
-  border-radius: 8px;
-}
+  .project-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #d9042922;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.2rem;
+    border-left: 5px solid #d90429;
+    font-size: 1.08rem;
+  }
+  .badge-theme {
+    background: #d90429;
+    color: #fff;
+    border-radius: 1rem;
+    font-weight: 500;
+    padding: 0.35rem 1.1rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.3rem;
+    display: inline-block;
+  }
+  .ref-list {
+    padding-left: 1rem;
+    font-size: 1.05rem;
+  }
+  .atout-list .list-group-item {
+    background: #f8f9fa;
+    border: none;
+    font-size: 1.07rem;
+    padding-left: 0.7rem;
+    margin-bottom: 0.2rem;
+    border-radius: 8px;
+  }
+  .fade-in-up {
+    animation: fadeInUp 1s;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: none;}
+  }
 </style>
 
 <section class="container my-5 fade-in-up">
-  <h1 class="mb-4 text-center fw-bold" style="color:#d90429;text-shadow:0 2px 8px #d9042940;">
+  <h1 class="mb-4 text-center fw-bold" style="color:#d90429;">
     <i class="bi bi-star-fill me-2" style="color:#ffd700;"></i>Présentation de SKYCONNECT SA
   </h1>
   <div class="row justify-content-center mb-4">
@@ -70,8 +58,8 @@
               <li><strong>Statut :</strong> Société Anonyme</li>
               <li><strong>Nom :</strong> SKYCONNECT SA</li>
               <li><strong>Création :</strong> 2004</li>
-              <li><strong>Siège :</strong> T2 Kipé Carrefour Métal Guinée, Conakry</li>
-              <li><strong>Employés :</strong> 16</li>
+              <li><strong>Siège :</strong> Conakry</li>
+              <li><strong>Équipe :</strong> Professionnels expérimentés</li>
               <li><strong>Secteurs :</strong> Télécoms, Numérique, Fournisseur d’Accès Internet</li>
             </ul>
             <span class="badge-theme">Télécoms</span>
@@ -103,40 +91,19 @@
   <div class="row justify-content-center mb-4">
     <div class="col-md-10">
       <div class="project-card">
-        <strong>LafargeHolcim Guinée (2019-2022)</strong> : Fourniture et installation d’équipements réseaux.
+        <strong>Grands comptes publics et privés</strong> : Fourniture et installation d’équipements réseaux et télécoms.
       </div>
       <div class="project-card">
-        <strong>Port Autonome de Conakry (2021-...)</strong> : Fourniture et installation d’équipements télécom.
+        <strong>Institutions financières</strong> : Installation et interconnexion VPN, solutions internet sécurisées.
       </div>
       <div class="project-card">
-        <strong>EDG (2017-2019)</strong> : Installation et interconnexion VPN de 6 agences et du siège.
+        <strong>Opérateurs télécoms</strong> : Déploiement de fibre optique, maintenance de réseaux.
       </div>
       <div class="project-card">
-        <strong>Université UGLC (2016-2018)</strong> : Installation d’antenne et modem Radwin pour accès internet.
+        <strong>Universités et ministères</strong> : Interconnexion, installation d’antennes et solutions cloud.
       </div>
       <div class="project-card">
-        <strong>Huawei Group (2017-2019)</strong> : Déploiement de 70km de fibre optique à Boké et maintenance de réseaux pour Orange et MTN Guinée.
-      </div>
-      <div class="project-card">
-        <strong>ANSUTEN (2023-...)</strong> : Interconnexion de 17 universités et instituts d’enseignement supérieur.
-      </div>
-      <div class="project-card">
-        <strong>ARPT (2013)</strong> : Installation station VSAT et lien FH point à point.
-      </div>
-      <div class="project-card">
-        <strong>BCRG (2013)</strong> : Installation d’internet par satellite à la Banque Centrale.
-      </div>
-      <div class="project-card">
-        <strong>PNAAFA / Ministère de l’Agriculture (2013)</strong> : Installation VSAT, câblage réseau et bornes WIFI.
-      </div>
-      <div class="project-card">
-        <strong>ECOBANK Guinée (2013)</strong> : Mise en service d’infrastructure télécom et VSAT.
-      </div>
-      <div class="project-card">
-        <strong>TOTAL Guinée (2017)</strong> : Installation de système de vidéosurveillance IP Ubiquiti.
-      </div>
-      <div class="project-card">
-        <strong>CICR (2013)</strong> : Fourniture de services internet par BLR.
+        <strong>Autres clients majeurs</strong> : Solutions personnalisées selon les besoins.
       </div>
     </div>
   </div>
@@ -149,33 +116,18 @@
           <div class="col-md-6">
             <h5 class="fw-bold" style="color:#d90429;">Secteur Public</h5>
             <ul class="ref-list">
-              <li>État Guinéen</li>
-              <li>Ministère des Postes, Télécommunications et Économie Numérique</li>
-              <li>ARPT</li>
-              <li>Port Autonome de Conakry</li>
-              <li>ENOG</li>
-              <li>ANSUTEN</li>
-              <li>Université UGLC</li>
-              <li>Banque Centrale (BCRG)</li>
-              <li>Ministère de l’Agriculture</li>
-              <li>ECOBANK Guinée</li>
+              <li>Ministères et agences gouvernementales</li>
+              <li>Universités et établissements publics</li>
+              <li>Institutions financières</li>
               <li>Etc...</li>
             </ul>
           </div>
           <div class="col-md-6">
             <h5 class="fw-bold" style="color:#d90429;">Secteur Privé</h5>
             <ul class="ref-list">
-              <li>LafargeHolcim Guinée</li>
-              <li>Huawei Group</li>
-              <li>Orange Guinée</li>
-              <li>MTN Guinée</li>
-              <li>Plan International Guinée</li>
-              <li>Moov Africa</li>
-              <li>Marine Marchande</li>
-              <li>Chemonis International Inc.</li>
-              <li>BCI Guinée</li>
-              <li>Total Guinée</li>
-              <li>CICR</li>
+              <li>Opérateurs télécoms</li>
+              <li>Entreprises industrielles</li>
+              <li>Organisations internationales</li>
               <li>Etc...</li>
             </ul>
           </div>
@@ -188,20 +140,20 @@
   <div class="row justify-content-center mb-4">
     <div class="col-md-10">
       <ul class="list-group list-group-flush atout-list">
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Service après-vente réactif et multicanal (Facebook, LinkedIn, Twitter/X, site web)</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Connaissance approfondie de l’environnement technique, économique et culturel guinéen</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Riche expérience et maîtrise de la fourniture d’accès Internet pour l’État et les grandes entreprises</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Rigueur et qualité des prestations, confiance des administrations et multinationales</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Méthodologie éprouvée pour garantir objectifs, délais et budgets</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Flexibilité : solutions personnalisées selon les besoins</li>
-        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Envergure nationale : disponibilité et pérennité des équipes</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Service après-vente réactif et multicanal</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Connaissance approfondie du marché guinéen</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Expérience reconnue auprès des grandes entreprises</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Qualité et rigueur des prestations</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Méthodologie éprouvée</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Flexibilité et solutions personnalisées</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Présence nationale</li>
       </ul>
     </div>
   </div>
 
   <div class="row justify-content-center mb-4">
     <div class="col-md-10 text-center">
-      <span class="badge-theme" style="font-size:1.1rem;">Couverture géographique : <b>Tout le territoire guinéen</b></span>
+      <span class="badge-theme" style="font-size:1.1rem;">Couverture géographique : <b>Conakry et extension progressive</b></span>
     </div>
   </div>
 </section>

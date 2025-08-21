@@ -1,4 +1,165 @@
 {% extends 'core/base.html' %}
+{% block title %}Qui sommes-nous ? - SKYCONNECT{% endblock %}
+
+{% block content %}
+<style>
+  .project-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #d9042922;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.2rem;
+    border-left: 5px solid #d90429;
+    font-size: 1.08rem;
+  }
+  .badge-theme {
+    background: #d90429;
+    color: #fff;
+    border-radius: 1rem;
+    font-weight: 500;
+    padding: 0.35rem 1.1rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.3rem;
+    display: inline-block;
+  }
+  .ref-list {
+    padding-left: 1rem;
+    font-size: 1.05rem;
+  }
+  .atout-list .list-group-item {
+    background: #f8f9fa;
+    border: none;
+    font-size: 1.07rem;
+    padding-left: 0.7rem;
+    margin-bottom: 0.2rem;
+    border-radius: 8px;
+  }
+  .fade-in-up {
+    animation: fadeInUp 1s;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: none;}
+  }
+</style>
+
+<section class="container my-5 fade-in-up">
+  <h1 class="mb-4 text-center fw-bold" style="color:#d90429;">
+    <i class="bi bi-star-fill me-2" style="color:#ffd700;"></i>Présentation de SKYCONNECT SA
+  </h1>
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10">
+      <div class="bg-white p-4 rounded shadow-sm">
+        <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <h4 class="fw-bold" style="color:#d90429;">Informations générales</h4>
+            <ul class="list-unstyled mb-2">
+              <li><strong>Statut :</strong> Société Anonyme</li>
+              <li><strong>Nom :</strong> SKYCONNECT SA</li>
+              <li><strong>Création :</strong> 2004</li>
+              <li><strong>Siège :</strong> Conakry</li>
+              <li><strong>Équipe :</strong> Professionnels expérimentés</li>
+              <li><strong>Secteurs :</strong> Télécoms, Numérique, Fournisseur d’Accès Internet</li>
+            </ul>
+            <span class="badge-theme">Télécoms</span>
+            <span class="badge-theme">Numérique</span>
+            <span class="badge-theme">FAI</span>
+          </div>
+          <div class="col-md-6">
+            <h4 class="fw-bold" style="color:#d90429;">Expertise & Services</h4>
+            <ul class="list-unstyled mb-2">
+              <li>Internet haut débit (B2B & B2C)</li>
+              <li>VPN et réseaux sécurisés</li>
+              <li>Solutions Cloud</li>
+              <li>Support technique 24h/7j</li>
+              <li>Câblage réseau informatique</li>
+              <li>Caméras de surveillance connectées</li>
+              <li>Interconnexion FH et FO</li>
+            </ul>
+            <span class="badge-theme">Fiabilité</span>
+            <span class="badge-theme">Réactivité</span>
+            <span class="badge-theme">Connectivité</span>
+            <span class="badge-theme">Innovation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center mb-4 fade-in-up delay-1" style="color:#d90429;">Nos réalisations majeures</h2>
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10">
+      <div class="project-card">
+        <strong>Grands comptes publics et privés</strong> : Fourniture et installation d’équipements réseaux et télécoms.
+      </div>
+      <div class="project-card">
+        <strong>Institutions financières</strong> : Installation et interconnexion VPN, solutions internet sécurisées.
+      </div>
+      <div class="project-card">
+        <strong>Opérateurs télécoms</strong> : Déploiement de fibre optique, maintenance de réseaux.
+      </div>
+      <div class="project-card">
+        <strong>Universités et ministères</strong> : Interconnexion, installation d’antennes et solutions cloud.
+      </div>
+      <div class="project-card">
+        <strong>Autres clients majeurs</strong> : Solutions personnalisées selon les besoins.
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center mb-4 fade-in-up delay-2" style="color:#d90429;">Références clients</h2>
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10">
+      <div class="bg-white p-3 rounded shadow-sm">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="fw-bold" style="color:#d90429;">Secteur Public</h5>
+            <ul class="ref-list">
+              <li>Ministères et agences gouvernementales</li>
+              <li>Universités et établissements publics</li>
+              <li>Institutions financières</li>
+              <li>Etc...</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5 class="fw-bold" style="color:#d90429;">Secteur Privé</h5>
+            <ul class="ref-list">
+              <li>Opérateurs télécoms</li>
+              <li>Entreprises industrielles</li>
+              <li>Organisations internationales</li>
+              <li>Etc...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center mb-4 fade-in-up delay-3" style="color:#d90429;">Nos atouts</h2>
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10">
+      <ul class="list-group list-group-flush atout-list">
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Service après-vente réactif et multicanal</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Connaissance approfondie du marché guinéen</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Expérience reconnue auprès des grandes entreprises</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Qualité et rigueur des prestations</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Méthodologie éprouvée</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Flexibilité et solutions personnalisées</li>
+        <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Présence nationale</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10 text-center">
+      <span class="badge-theme" style="font-size:1.1rem;">Couverture géographique : <b>Conakry et extension progressive</b></span>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{#{% extends 'core/base.html' %}
 {% load static %}
 {% block title %}Qui sommes-nous ? - Sky Connect{% endblock %}
 
@@ -205,4 +366,4 @@
     </div>
   </div>
 </section>
-{% endblock %}
+{% endblock %}#}

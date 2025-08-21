@@ -90,8 +90,10 @@ DATABASES = {
     }
 }
 """
+env = environ.Env()
+environ.Env.read_env()
 DATABASES = {
-    'default': dj_database_url.parse(env('_DATABASE_URL_'))
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 # Password validation

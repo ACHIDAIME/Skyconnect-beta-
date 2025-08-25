@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
 ]
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
 MIDDLEWARE = [
@@ -100,6 +100,7 @@ environ.Env.read_env()
 DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
